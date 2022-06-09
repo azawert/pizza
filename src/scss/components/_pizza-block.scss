@@ -41,6 +41,10 @@
         cursor: pointer;
         font-weight: 600;
         font-size: 14px;
+        display: block;
+        &::first-letter{
+          text-transform: uppercase;
+        }
         @include noselect();
         &.active {
           background: #ffffff;
