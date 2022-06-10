@@ -1,11 +1,10 @@
 import React from 'react'
-
 export default function Pizza({title,img,price,sizes,types}) {
     const [activeIndex, setActiveIndex] = React.useState(0);
     const [activeDoughIndex,setActiveDoughIndex] = React.useState(0);
     
     const dough = ['тонкое','традиционное'];
-    console.log(types);
+    
   return (
     <div className="pizza-block">
   <img
