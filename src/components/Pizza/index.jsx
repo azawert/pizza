@@ -6,6 +6,7 @@ export default function Pizza({title,img,price,sizes,types}) {
     const dough = ['тонкое','традиционное'];
     
   return (
+    <div className='center-block'>
     <div className="pizza-block">
   <img
     className="pizza-block__image"
@@ -15,8 +16,6 @@ export default function Pizza({title,img,price,sizes,types}) {
   <h4 className="pizza-block__title">{title}</h4>
   <div className="pizza-block__selector">
     <ul>
-      {/* <li className="active">тонкое</li>
-      <li>традиционное</li> */}
       {types.map((element)=>{
         return <li key={element} onClick={()=> setActiveDoughIndex(element)} className={activeDoughIndex===element ? 'active':''}>{dough[element]}</li>
       })}
@@ -30,7 +29,7 @@ export default function Pizza({title,img,price,sizes,types}) {
     </ul>
   </div>
   <div className="pizza-block__bottom">
-    <div className="pizza-block__price">от {price}</div>
+    <div className="pizza-block__price">от {price} руб.</div>
     <button className="button button--outline button--add">
       <svg
         width="12"
@@ -48,6 +47,7 @@ export default function Pizza({title,img,price,sizes,types}) {
       <i>0</i>
     </button>
   </div>
-</div> 
+</div>
+</div>
   )
 }

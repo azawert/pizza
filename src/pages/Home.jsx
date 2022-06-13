@@ -4,7 +4,6 @@ import Sort from '../components/Sort'
 import Skeleton from '../components/Pizza/Skeleton'
 import Pizza from '../components/Pizza'
 export default function Home() {
-    const emptyArray = [...new Array(6)];
     const [pizzas,setPizzas] = React.useState([]);
     const [isLoading,setIsLoading] = React.useState(true);
    React.useEffect(()=>{
@@ -15,22 +14,22 @@ export default function Home() {
        
      }
      fetchData()
-     
+     window.scrollTo(0,0);
    },[])
 
   return (
       
-    <>
+    <div className="container">
       <div className="content__top">
             <Categories/>
             <Sort/>
           </div>
           <h2 className="content__title">Все пиццы</h2>
           <div className="content__items">
-          {isLoading?([emptyArray].map((_,i)=>{return <Skeleton key={i}/>})):pizzas.map((element)=> {
+          {isLoading?([...new Array(10)].map((_,i)=>{return <Skeleton key={i}/>})):pizzas.map((element)=> {
             return <Pizza key={element.id} img={element.imageUrl}{...element} />
           })}
           </div>
-    </>
+    </div>
   )
 }
