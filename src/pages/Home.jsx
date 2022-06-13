@@ -1,13 +1,15 @@
 import React from 'react'
+
 import Categories from '../components/Categories'
 import Sort from '../components/Sort'
 import Skeleton from '../components/Pizza/Skeleton'
 import Pizza from '../components/Pizza'
-
-export default function Home() {
+import { Pagination } from '../components/Pagination'
+export default function Home({searchValue}) {
     const [pizzas,setPizzas] = React.useState([]);
     const [isLoading,setIsLoading] = React.useState(true);
     const [categoryId, setCategoryId] = React.useState(0);
+    const [currentPage,setCurrentPage] = React.useState(1);
     const [sortType, setSortType] = React.useState({
       name:'популярности (по убыванию)',sortProperty:'rating'
     });
@@ -16,16 +18,20 @@ export default function Home() {
      async function fetchData() {
        const order = sortType.sortProperty.includes('-');
        const category = categoryId > 0?`category=${categoryId}` :''
-       const sortBy = sortType.sortProperty.replace('-','')
-      await fetch(`https://62a2fcc35bd3609cee5f6470.mockapi.io/items?${category}&sortBy=${sortBy})}&order=${order?'asc':'desc'}`).then(res=>res.json()).then(arr=>{
+       const sortBy = sortType.sortProperty.replace('-','');
+       const search = searchValue ? `&search=${searchValue}`:'';
+      await fetch(`https://62a2fcc35bd3609cee5f6470.mockapi.io/items?limit=4&page=${currentPage}&${category}&sortBy=${sortBy})}&order=${order?'asc':'desc'}${search}`).then(res=>res.json()).then(arr=>{
          setPizzas(arr)
         setIsLoading(false)})
        
      }
      fetchData()
      window.scrollTo(0,0);
-   },[categoryId,sortType])
-   
+   },[categoryId,sortType,searchValue,currentPage])
+   const filteredPizzas = pizzas.map((element)=> {
+     return <Pizza key={element.id} img={element.imageUrl} {...element}/>})
+    // return <Pizza key={element.id} img={element.imageUrl}{...element}})/>}
+    const skeletons = ([...new Array(10)].map((_,i)=>{return <Skeleton key={i}/>}))
   return (
       
     <div className="container">
@@ -35,10 +41,9 @@ export default function Home() {
           </div>
           <h2 className="content__title">Все пиццы</h2>
           <div className="content__items">
-          {isLoading?([...new Array(10)].map((_,i)=>{return <Skeleton key={i}/>})):pizzas.map((element)=> {
-            return <Pizza key={element.id} img={element.imageUrl}{...element} />
-          })}
+          {isLoading?skeletons:filteredPizzas}
           </div>
+          <Pagination onChangePage={number=> setCurrentPage(number)}/>
     </div>
   )
-}
+  }
