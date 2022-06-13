@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+import Search from './Search'
 
 
 export default function Header() {
@@ -16,6 +16,7 @@ export default function Header() {
       </div>
     </div>
     </Link>
+    <Search/>
     <Link to='cart'>
     <div className="header__cart">
     <div className="button button--cart">
