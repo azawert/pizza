@@ -5,7 +5,10 @@ import Sort from '../components/Sort'
 import Skeleton from '../components/Pizza/Skeleton'
 import Pizza from '../components/Pizza'
 import { Pagination } from '../components/Pagination'
-export default function Home({searchValue}) {
+import { SearchContext } from '../App'
+
+export default function Home() {
+  const {searchValue} = React.useContext(SearchContext);
     const [pizzas,setPizzas] = React.useState([]);
     const [isLoading,setIsLoading] = React.useState(true);
     const [categoryId, setCategoryId] = React.useState(0);
@@ -20,7 +23,7 @@ export default function Home({searchValue}) {
        const category = categoryId > 0?`category=${categoryId}` :''
        const sortBy = sortType.sortProperty.replace('-','');
        const search = searchValue ? `&search=${searchValue}`:'';
-      await fetch(`https://62a2fcc35bd3609cee5f6470.mockapi.io/items?limit=4&page=${currentPage}&${category}&sortBy=${sortBy})}&order=${order?'asc':'desc'}${search}`).then(res=>res.json()).then(arr=>{
+      await fetch(`https://62a2fcc35bd3609cee5f6470.mockapi.io/items?limit=4&page=${currentPage}&${category}&sortBy=${sortBy}&order=${order?'asc':'desc'}${search}`).then(res=>res.json()).then(arr=>{
          setPizzas(arr)
         setIsLoading(false)})
        
