@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 import Categories from '../components/Categories'
 import Sort from '../components/Sort'
@@ -8,10 +9,13 @@ import { Pagination } from '../components/Pagination'
 import { SearchContext } from '../App'
 
 export default function Home() {
+
+const categoryId = useSelector(state=> state.filterSlice.categoryId);
+const setCategoryId = () => {console.log(categoryId)}
   const {searchValue} = React.useContext(SearchContext);
     const [pizzas,setPizzas] = React.useState([]);
     const [isLoading,setIsLoading] = React.useState(true);
-    const [categoryId, setCategoryId] = React.useState(0);
+    // const [categoryId, setCategoryId] = React.useState(0);
     const [currentPage,setCurrentPage] = React.useState(1);
     const [sortType, setSortType] = React.useState({
       name:'популярности (по убыванию)',sortProperty:'rating'
@@ -39,7 +43,7 @@ export default function Home() {
       
     <div className="container">
       <div className="content__top">
-            <Categories value = {categoryId} onChangeCategory={(index)=> setCategoryId(index)}/>
+            <Categories value = {categoryId} onChangeCategory={setCategoryId}/>
             <Sort value={sortType} onChangeSort={(i)=>setSortType(i)}/>
           </div>
           <h2 className="content__title">Все пиццы</h2>

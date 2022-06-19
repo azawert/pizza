@@ -5,22 +5,21 @@ import NotFound from './pages/NotFound';
 import Cart from './pages/Cart'
 import React from 'react'
 import {Routes,Route} from 'react-router-dom'
-
+import { setCategoryId } from './redux/slices/filterSlice';
 export const SearchContext = React.createContext('');
 function App() {
 
  const [searchValue,setSearchValue] = React.useState('');
-
-
+ 
+ 
 
   return (
-    <div className="App">
-      
-    <div className="wrapper">
+    
+     <div className="wrapper">
       <SearchContext.Provider value={{searchValue,setSearchValue}}>
         <Header/>
         <div className="content">
-        
+      
           <Routes>
             <Route path='' element={<Home/>}/>
             <Route path='/cart' element={<Cart/>}/>
@@ -31,7 +30,7 @@ function App() {
         </div>
       </SearchContext.Provider>
       </div>
-    </div>
+    
     
   );
 }
