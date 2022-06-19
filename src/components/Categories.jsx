@@ -12,7 +12,7 @@ export default function Categories({value,onChangeCategory}) {
                   return <li key={index} onClick={()=>onChangeCategory(index)} className={value === index ?"active":''}>{el}</li>
                 })}
               </ul>
-              {console.log(categories[value])}
+              
             </div>
             
   )
