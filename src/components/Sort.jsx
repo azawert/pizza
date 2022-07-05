@@ -1,19 +1,25 @@
 import React from 'react'
 import { useSelector,useDispatch } from 'react-redux/es/exports';
 import { setSort } from '../redux/slices/filterSlice';
-
+export const sortList = [{name:'популярности (по убыванию)',sortProperty:'rating'},{name:'цене (по убыванию)',sortProperty:'price'},{name:'алфавиту (по убыванию)',sortProperty:'title'},{name:'популярности (по возрастанию)',sortProperty:'-rating'},{name:'цене (по возрастанию)',sortProperty:'-price'},{name:'алфавиту (по возрастанию)',sortProperty:'-title'}]
 export default function Sort() {
 
 const dispatch = useDispatch();
 const sort = useSelector(state=>state.filterSlice.sort)
+const sortRef = React.useRef()
 
 
-const list = [{name:'популярности (по убыванию)',sortProperty:'rating'},{name:'цене (по убыванию)',sortProperty:'price'},{name:'алфавиту (по убыванию)',sortProperty:'title'},{name:'популярности (по возрастанию)',sortProperty:'-rating'},{name:'цене (по возрастанию)',sortProperty:'-price'},{name:'алфавиту (по возрастанию)',sortProperty:'-title'}]
 const [open,setOpen] = React.useState(false);
 const onClickListItem = (obj) => {
   dispatch(setSort(obj))
   setOpen(false);
 }
+
+React.useEffect(()=>{
+  document.body.addEventListener('click',event=>{
+    console.log(event)
+  })
+},[])
   
 return (
     <div className="sort">
@@ -35,7 +41,7 @@ return (
     </div>
     {open && <div className="sort__popup">
       <ul>
-        {list.map((element,index)=>{
+        {sortList.map((element,index)=>{
           return <li onClick={()=>{onClickListItem(element)}} className={sort.sortProperty===element.sortProperty ? 'active' :''} key={index}>{element.name}</li> 
         })}
       </ul> 
