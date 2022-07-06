@@ -20,14 +20,15 @@ const cartSlice = createSlice({
 
             if(findItem) {
                 findItem.count++
-                state.items.length++;
+                
             } else {
                 state.items.push({
                     ...action.payload,
                     count:1
                 });
+                
             }
-            state.totalPrice = state.items.reduce((sum,obj)=>obj.price+sum,0)
+            state.totalPrice = state.items.reduce((sum,obj)=>(obj.price*obj.count)+sum,0)
         },
         removeItem(state,action) {
             state.items.filter(obj=>obj.id!==action.payload)
