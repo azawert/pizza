@@ -1,9 +1,28 @@
 import React from 'react'
-export default function Pizza({title,img,price,sizes,types}) {
+import { useSelector,useDispatch } from 'react-redux';
+import { addItem} from '../../redux/slices/cartSlice';
+
+export default function Pizza({title,img,price,sizes,types,id}) {
+  const dispatch = useDispatch();
+
     const [activeIndex, setActiveIndex] = React.useState(0);
     const [activeDoughIndex,setActiveDoughIndex] = React.useState(0);
     
     const dough = ['тонкое','традиционное'];
+    
+
+    const onClickAdd = () => {
+      const item = {
+        id,
+        title,
+        price,
+        img,
+        types: dough[activeDoughIndex],
+        sizes: activeIndex
+      }
+      dispatch(addItem(item))
+      
+    }
     
   return (
     <div className='center-block'>
@@ -30,7 +49,7 @@ export default function Pizza({title,img,price,sizes,types}) {
   </div>
   <div className="pizza-block__bottom">
     <div className="pizza-block__price">от {price} руб.</div>
-    <button className="button button--outline button--add">
+    <button onClick={onClickAdd} className="button button--outline button--add">
       <svg
         width="12"
         height="12"

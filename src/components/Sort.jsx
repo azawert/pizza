@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { useSelector,useDispatch } from 'react-redux/es/exports';
 import { setSort } from '../redux/slices/filterSlice';
 export const sortList = [{name:'популярности (по убыванию)',sortProperty:'rating'},{name:'цене (по убыванию)',sortProperty:'price'},{name:'алфавиту (по убыванию)',sortProperty:'title'},{name:'популярности (по возрастанию)',sortProperty:'-rating'},{name:'цене (по возрастанию)',sortProperty:'-price'},{name:'алфавиту (по возрастанию)',sortProperty:'-title'}]
@@ -12,14 +12,24 @@ const sortRef = React.useRef()
 const [open,setOpen] = React.useState(false);
 const onClickListItem = (obj) => {
   dispatch(setSort(obj))
-  setOpen(false);
+  setOpen(!open);
+  console.log(open)
 }
 
 React.useEffect(()=>{
-  document.body.addEventListener('click',event=>{
-    console.log(event)
-  })
+    const handleClickOutside = (event) => {
+      if(!event.path.includes(sortRef.current)) {
+        setOpen(false);
+        console.log('click outside')
+      }
+    }
+   document.body.addEventListener('click',handleClickOutside)
+    return () => {
+      document.body.removeEventListener('click',handleClickOutside)
+    }
+   
 },[])
+
   
 return (
     <div className="sort">
@@ -37,7 +47,7 @@ return (
         />
       </svg>
       <b>Сортировка по:</b>
-      <span onClick={()=>{setOpen(!open)}} >{sort.name}</span>
+      <span ref={sortRef} onClick={()=>{setOpen(true)}} >{sort.name}</span>
     </div>
     {open && <div className="sort__popup">
       <ul>

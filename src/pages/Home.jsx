@@ -17,7 +17,6 @@ const dispatch = useDispatch();
 const navigate = useNavigate();
 const categoryId = useSelector(state=> state.filterSlice.categoryId);
 const sortType = useSelector(state=>state.filterSlice.sort.sortProperty)
-console.log(sortType)
 const currentPage = useSelector(state=>state.filterSlice.currentPage)
   const {searchValue} = React.useContext(SearchContext);
     const [pizzas,setPizzas] = React.useState([]);
