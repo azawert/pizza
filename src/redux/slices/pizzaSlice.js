@@ -11,6 +11,7 @@ export const fetchPizzas = createAsyncThunk (
 
 const initialState= {
     items:[],
+    status:'loading'
 };
 
 
@@ -19,8 +20,20 @@ const pizzaSlice = createSlice({
     name: 'pizza',
     initialState,
     reducers:{
-        setPizzas(state,action){
-            state.items = action.payload;
+        
+    },
+    extraReducers: {
+        [fetchPizzas.pending]: (state)=> {
+            state.items = []
+            state.status = 'loading'
+        },
+        [fetchPizzas.fulfilled]: (state,action) => {
+            state.items = action.payload
+            state.status = 'done'
+        },
+        [fetchPizzas.rejected]: (state,error)=>{
+            state.items = []
+            state.status = 'failed'
         }
     }
     
