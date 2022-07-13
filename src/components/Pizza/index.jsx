@@ -1,10 +1,10 @@
 import React from 'react'
 import { useSelector,useDispatch } from 'react-redux';
-import { addItem} from '../../redux/slices/cartSlice';
+import { addItem, selectCartItem} from '../../redux/slices/cartSlice';
 
 export default function Pizza({title,img,price,sizes,types,id}) {
   const dispatch = useDispatch();
-  const cartItem = useSelector(state=>state.cartSlice.items.find(obj=>obj.id===id))
+  const cartItem = useSelector(selectCartItem(id))
   const addedCount = cartItem ? cartItem.count : 0
 
     const [activeIndex, setActiveIndex] = React.useState(0);

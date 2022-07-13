@@ -2,25 +2,25 @@ import React from 'react'
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 import { useSelector,useDispatch } from 'react-redux'
-import { fetchPizzas } from '../redux/slices/pizzaSlice';
-import { setCategoryId,setCurrentPage,setFilters} from '../redux/slices/filterSlice'
+import { fetchPizzas, selectItems, selectStatus } from '../redux/slices/pizzaSlice';
+import { selectCategoryId, selectCurrentPage, selectSearchValue, selectSortType, setCategoryId,setCurrentPage,setFilters} from '../redux/slices/filterSlice'
 import Categories from '../components/Categories'
 import Sort, { sortList } from '../components/Sort'
 import Skeleton from '../components/Pizza/Skeleton'
 import Pizza from '../components/Pizza'
 import { Pagination } from '../components/Pagination'
-import { SearchContext } from '../App'
+
 
 export default function Home() {
 const dispatch = useDispatch();
 const navigate = useNavigate();
-const categoryId = useSelector(state=> state.filterSlice.categoryId);
-const sortType = useSelector(state=>state.filterSlice.sort.sortProperty)
-const currentPage = useSelector(state=>state.filterSlice.currentPage)
-const items = useSelector(state=>state.pizzaSlice.items)
-const status = useSelector(state=>state.pizzaSlice.status)
-  const {searchValue} = React.useContext(SearchContext);
-    
+const categoryId = useSelector(selectCategoryId);
+const sortType = useSelector(selectSortType)
+const currentPage = useSelector(selectCurrentPage)
+const items = useSelector(selectItems)
+const status = useSelector(selectStatus)
+const searchValue = useSelector(selectSearchValue)
+  
     const fetchPizza = () =>{
       
        
