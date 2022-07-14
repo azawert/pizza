@@ -1,9 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useDispatch,useSelector } from 'react-redux/es/exports';
+import {  useDispatch,useSelector } from 'react-redux/es/exports';
 import  {CartItem}  from '../components/CartItem';
 import { clearCart } from '../redux/slices/cartSlice';
-import emptyCart from '../components/emptyCart';
+import EmptyCart from '../components/emptyCart.jsx'
+
 
 export default function Cart() {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ export default function Cart() {
     
   }
   if(!items.length) {
-    <emptyCart/>
+    return <EmptyCart/>
   }
 
   return (

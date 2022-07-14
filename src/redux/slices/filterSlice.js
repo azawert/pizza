@@ -23,6 +23,7 @@ const filterSlice = createSlice({
             state.searchValue = action.payload
         },
         setSort(state,action) {
+            
             state.sort = action.payload
         },
         setCurrentPage(state,action) {

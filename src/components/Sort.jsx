@@ -1,26 +1,24 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import { useSelector,useDispatch } from 'react-redux/es/exports';
-import { selectSortType, setSort } from '../redux/slices/filterSlice';
+import filterSlice, {setSort } from '../redux/slices/filterSlice';
 export const sortList = [{name:'популярности (по убыванию)',sortProperty:'rating'},{name:'цене (по убыванию)',sortProperty:'price'},{name:'алфавиту (по убыванию)',sortProperty:'title'},{name:'популярности (по возрастанию)',sortProperty:'-rating'},{name:'цене (по возрастанию)',sortProperty:'-price'},{name:'алфавиту (по возрастанию)',sortProperty:'-title'}]
 export default function Sort() {
 
 const dispatch = useDispatch();
-const sort = useSelector(selectSortType)
+const sort = useSelector(state=>state.filterSlice.sort)
 const sortRef = React.useRef()
-
 
 const [open,setOpen] = React.useState(false);
 const onClickListItem = (obj) => {
   dispatch(setSort(obj))
   setOpen(!open);
-  console.log(open)
+  
 }
 
 React.useEffect(()=>{
     const handleClickOutside = (event) => {
       if(!event.path.includes(sortRef.current)) {
         setOpen(false);
-        console.log('click outside')
       }
     }
    document.body.addEventListener('click',handleClickOutside)
