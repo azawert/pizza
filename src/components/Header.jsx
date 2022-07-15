@@ -1,7 +1,7 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link,useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-
+import 'macro-css'
 import Search from './Search'
 
 
@@ -10,6 +10,9 @@ export default function Header() {
   const {items} = useSelector(state=>state.cartSlice)
   const totalPrice = items.reduce((sum,item)=> item.price*item.count+sum,0)
   const totalCount = items.reduce((sum,item)=> sum + item.count,0);
+  const location = useLocation();
+  
+
   return (
     <div className="header">
   <div className="container">
@@ -22,10 +25,10 @@ export default function Header() {
       </div>
     </div>
     </Link>
-    <Search/>
+    {location.pathname !== '/cart' && <div className='d-flex mr-20'><Search/>
     <Link to='cart'>
     <div className="header__cart">
-    <div className="button button--cart">
+     <div className= "button button--cart">
         <span>{totalPrice} ₽</span>
         <div className="button__delimiter"></div>
         <svg
@@ -59,8 +62,10 @@ export default function Header() {
         </svg>
         <span>{totalCount}</span>
         </div>
-    </div>
+        </div>
+    
     </Link>
+    </div>}
   </div>
 </div>
   )

@@ -1,15 +1,15 @@
 
 import React from 'react'
-import { useDispatch,useSelector } from 'react-redux'
+import { useDispatch} from 'react-redux'
 import { addItem,removeItem,removeSingleItem } from '../redux/slices/cartSlice';
+import Swal from 'sweetalert2';
 export const CartItem = ({id,title,price,img,count,types,sizes}) => {
   const dispatch = useDispatch();
-  const items = useSelector(state=>state.cartSlice.items)
   const onClickPlus = () => {
     dispatch(addItem({
       id
     }))
-    console.log(items)
+    
   }
   const onClickMinus = () => {
     dispatch(removeSingleItem({
@@ -18,9 +18,25 @@ export const CartItem = ({id,title,price,img,count,types,sizes}) => {
     
   }
   const onClickX = () => {
-    if(window.confirm('Ты действительно хочешь удалить пиццу?')){
-      dispatch(removeItem(id))
-    }
+      Swal.fire({
+        title:'Ты уверен,что хочешь удалить пиццу?',
+        icon:'question',
+        showCancelButton:true,
+        cancelButtonText:'Нет',
+        showCloseButton:true,
+
+      }).then((result)=>{
+        if(result.isConfirmed){
+          dispatch(removeItem(id))
+          Swal.fire({
+            title:'Пицца была удалена!',
+            icon:'success',
+            timer:2000
+          })
+        }
+      })
+      
+    
   }
   
 

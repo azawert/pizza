@@ -1,5 +1,7 @@
-import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
-import swal from 'sweetalert';
+import { createSlice } from "@reduxjs/toolkit";
+import Swal from "sweetalert2";
+
+
 
 
 
@@ -41,22 +43,19 @@ const cartSlice = createSlice({
             }
             state.totalPrice = state.items.reduce((sum,obj)=>(obj.price*obj.count)-sum,state.totalPrice) 
             } else {
-                swal({title:'Нельзя сделать меньше одной пиццы :)',
-                      icon:'error'
-                    })
+                Swal.fire({
+                    title:'Добавьте больше пицц, чтобы удалить',
+                    icon:'error',
+                    showCancelButton:true,
+                    cancelButtonText:'Закрыть',
+                    showCloseButton:true,
+                })
             }
               
             },
         clearCart(state) {
             if(state.items.length !== 0){
-                swal({title:'Корзина очищена.',icon:'success',
-                      buttons:{
-                        yes:{
-                            text:'Окей',
-                        },
-                        
-                      }
-                      })
+                
                       state.items = []
             } 
             
