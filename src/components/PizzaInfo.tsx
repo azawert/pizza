@@ -2,14 +2,20 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios';
 import ClipLoader from "react-spinners/ClipLoader"
-function PizzaInfo() {
+const PizzaInfo: React.FC = () => {
   const override = {
     display: "block",
     margin: "0 auto",
     borderColor: "red",
   };
   const {id} = useParams();
-  const [pizza,setPizza] = React.useState()
+  const [pizza,setPizza] = React.useState<{
+    imageUrl: string;
+    title: string;
+  }>({
+    imageUrl:'',
+    title: '',
+  })
   const [isLoading,setIsLoading] = React.useState(true);
   React.useEffect( ()=>{
     async function getSinglePizza() {
