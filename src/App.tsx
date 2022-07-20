@@ -3,7 +3,6 @@ import Header from './components/Header.jsx'
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import Cart from './pages/Cart'
-import React from 'react'
 import {Routes,Route} from 'react-router-dom'
 import PizzaInfo from './components/PizzaInfo';
 
