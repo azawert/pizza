@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import {  useDispatch,useSelector } from 'react-redux/es/exports';
 import  {CartItem}  from '../components/CartItem';
 import { clearCart } from '../redux/slices/cartSlice';
-import EmptyCart from '../components/emptyCart.jsx'
+import EmptyCart from '../components/emptyCart.tsx'
 import Swal from 'sweetalert2'
 
 export default function Cart() {

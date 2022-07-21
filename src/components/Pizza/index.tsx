@@ -2,7 +2,17 @@ import React from 'react'
 import { useSelector,useDispatch } from 'react-redux';
 import { addItem, selectCartItem} from '../../redux/slices/cartSlice';
 import { Link } from 'react-router-dom';
-export default function Pizza({title,img,price,sizes,types,id}) {
+
+type PizzaProps = {
+  title: string;
+  img: string;
+  price: number;
+  sizes: [number];
+  types: [string];
+  id: string;
+}
+
+ const Pizza:React.FC<PizzaProps> = ({title,img,price,sizes,types,id}) => {
   const dispatch = useDispatch();
   const cartItem = useSelector(selectCartItem(id))
   const addedCount = cartItem ? cartItem.count : 0
@@ -72,3 +82,5 @@ export default function Pizza({title,img,price,sizes,types,id}) {
 </div>
   )
 }
+
+export default Pizza;

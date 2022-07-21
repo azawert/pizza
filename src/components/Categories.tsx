@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Categories({value,onChangeCategory}) {
+const Categories = ({value,onChangeCategory}) => {
   
   
     
@@ -17,3 +17,5 @@ export default function Categories({value,onChangeCategory}) {
             
   )
 }
+
+export default Categories

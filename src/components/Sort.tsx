@@ -1,15 +1,26 @@
 import React from 'react'
 import { useSelector,useDispatch } from 'react-redux/es/exports';
 import  {setSort } from '../redux/slices/filterSlice';
-export const sortList = [{name:'популярности (по убыванию)',sortProperty:'rating'},{name:'цене (по убыванию)',sortProperty:'price'},{name:'алфавиту (по убыванию)',sortProperty:'title'},{name:'популярности (по возрастанию)',sortProperty:'-rating'},{name:'цене (по возрастанию)',sortProperty:'-price'},{name:'алфавиту (по возрастанию)',sortProperty:'-title'}]
+
+// const ObjectInformation = {
+//   age: 15,
+//   city: 'Moscow',
+// }
+
+type SortItem = {
+  name: string;
+  sortProperty: string;
+}
+
+export const sortList: SortItem[] = [{name:'популярности (по убыванию)',sortProperty:'rating'},{name:'цене (по убыванию)',sortProperty:'price'},{name:'алфавиту (по убыванию)',sortProperty:'title'},{name:'популярности (по возрастанию)',sortProperty:'-rating'},{name:'цене (по возрастанию)',sortProperty:'-price'},{name:'алфавиту (по возрастанию)',sortProperty:'-title'}]
 export default function Sort() {
 
 const dispatch = useDispatch();
 const sort = useSelector(state=>state.filterSlice.sort)
-const sortRef = React.useRef()
+const sortRef = React.useRef<HTMLSpanElement>(null)
 
 const [open,setOpen] = React.useState(false);
-const onClickListItem = (obj) => {
+const onClickListItem = (obj: SortItem) => {
   dispatch(setSort(obj))
   setOpen(!open);
   
