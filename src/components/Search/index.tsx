@@ -7,14 +7,14 @@ export default function Search() {
   const [value,setValue] = React.useState('');
   const dispatch = useDispatch();
   const searchValue = useSelector(selectSearchValue)
-  const inputRef = React.useRef();
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
 const updateSearchValue = React.useCallback(
-  debounce((value)=>{
+  debounce((value: string)=>{
     dispatch(setSearchValue(value))
-  },250,[])
+  },150),[]
 )
-const onChangeInput = event => {
+const onChangeInput = (event: any) => {
   setValue(event.target.value)
   updateSearchValue(event.target.value)
 }
@@ -22,7 +22,9 @@ const onChangeInput = event => {
   const clearValue = () => {
     dispatch(setSearchValue(''));
     setValue('');
-    inputRef.current.focus();
+    
+      inputRef.current?.focus();
+    
     
   }
 
