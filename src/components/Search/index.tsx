@@ -14,7 +14,7 @@ const updateSearchValue = React.useCallback(
     dispatch(setSearchValue(value))
   },150),[]
 )
-const onChangeInput = (event: any) => {
+const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
   setValue(event.target.value)
   updateSearchValue(event.target.value)
 }
@@ -22,8 +22,7 @@ const onChangeInput = (event: any) => {
   const clearValue = () => {
     dispatch(setSearchValue(''));
     setValue('');
-    
-      inputRef.current?.focus();
+    inputRef.current?.focus();
     
     
   }

@@ -2,14 +2,15 @@ import React from 'react'
 import { useSelector,useDispatch } from 'react-redux/es/exports';
 import  {setSort } from '../redux/slices/filterSlice';
 
-// const ObjectInformation = {
-//   age: 15,
-//   city: 'Moscow',
-// }
+
 
 type SortItem = {
   name: string;
   sortProperty: string;
+}
+
+type PopupClick = React.MouseEvent<HTMLBodyElement> & {
+  path: Node[]
 }
 
 export const sortList: SortItem[] = [{name:'популярности (по убыванию)',sortProperty:'rating'},{name:'цене (по убыванию)',sortProperty:'price'},{name:'алфавиту (по убыванию)',sortProperty:'title'},{name:'популярности (по возрастанию)',sortProperty:'-rating'},{name:'цене (по возрастанию)',sortProperty:'-price'},{name:'алфавиту (по возрастанию)',sortProperty:'-title'}]
@@ -27,8 +28,11 @@ const onClickListItem = (obj: SortItem) => {
 }
 
 React.useEffect(()=>{
-    const handleClickOutside = (event) => {
-      if(!event.path.includes(sortRef.current)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      const _event = event as MouseEvent & {
+        path: Node[]
+      };
+      if(sortRef.current && !_event.path.includes(sortRef.current)) {
         setOpen(false);
       }
     }

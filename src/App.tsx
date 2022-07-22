@@ -1,5 +1,5 @@
 import './scss/app.scss'
-import Header from './components/Header.jsx'
+import Header from './components/Header'
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import Cart from './pages/Cart'

@@ -7,8 +7,8 @@ type PizzaProps = {
   title: string;
   img: string;
   price: number;
-  sizes: [number];
-  types: [string];
+  sizes: number[];
+  types: number[];
   id: string;
 }
 
@@ -17,8 +17,8 @@ type PizzaProps = {
   const cartItem = useSelector(selectCartItem(id))
   const addedCount = cartItem ? cartItem.count : 0
 
-    const [activeIndex, setActiveIndex] = React.useState(0);
-    const [activeDoughIndex,setActiveDoughIndex] = React.useState(0);
+    const [activeIndex, setActiveIndex] = React.useState<number>(0);
+    const [activeDoughIndex,setActiveDoughIndex] = React.useState<number>(0);
     
     const dough = ['тонкое','традиционное'];
     

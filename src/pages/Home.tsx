@@ -45,10 +45,10 @@ const searchValue = useSelector(selectSearchValue)
        window.scrollTo(0,0);
       }
        
-    const onChangeCategory = (id) => {
+    const onChangeCategory = (id:number) => {
       dispatch(setCategoryId(id));
     };
-    const onChangePage = number => {
+    const onChangePage = (number:number) => {
       dispatch(setCurrentPage(number))
     };
 
@@ -78,9 +78,8 @@ const searchValue = useSelector(selectSearchValue)
 
    
 
-   const filteredPizzas = items.map((element)=> {
+   const filteredPizzas = items.map((element: {id:string;imageUrl:string;title:string;price:number;sizes:number[];types:number[]})=> {
      return <Pizza key={element.id} img={element.imageUrl} {...element}/>})
-    // return <Pizza key={element.id} img={element.imageUrl}{...element}})/>}
     const skeletons = ([...new Array(10)].map((_,i)=>{return <Skeleton key={i}/>}))
   return (
       
