@@ -1,8 +1,8 @@
 import React from 'react'
 import { useSelector,useDispatch } from 'react-redux';
 import { addItem, selectCartItem} from '../../redux/slices/cartSlice';
-import { Link } from 'react-router-dom';
-
+import { Link }  from 'react-router-dom';
+import {CartItem} from '../../redux/slices/cartSlice'
 type PizzaProps = {
   title: string;
   img: string;
@@ -10,6 +10,7 @@ type PizzaProps = {
   sizes: number[];
   types: number[];
   id: string;
+  count?:0;
 }
 
  const Pizza:React.FC<PizzaProps> = ({title,img,price,sizes,types,id}) => {
@@ -24,13 +25,14 @@ type PizzaProps = {
     
 
     const onClickAdd = () => {
-      const item = {
+      const item:CartItem = {
         id,
         title,
         price,
         img,
         types: dough[activeDoughIndex],
-        sizes: activeIndex
+        sizes: activeIndex,
+        count:0,
       }
       dispatch(addItem(item))
       
@@ -75,7 +77,7 @@ type PizzaProps = {
           /> 
       </svg>
       <span>Добавить</span>
-      {addedCount > 0 && <i>{cartItem.count}</i> }
+      {addedCount > 0 && <i>{cartItem?.count}</i> }
     </button>
   </div>
 </div>

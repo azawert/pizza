@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import {  useDispatch,useSelector } from 'react-redux/es/exports';
-import  {CartItem}  from '../components/CartItem';
+import  {CartItemBlock}  from '../components/CartItem';
 import { clearCart } from '../redux/slices/cartSlice';
 import EmptyCart from '../components/emptyCart'
 import Swal from 'sweetalert2'
@@ -62,7 +62,7 @@ export default function Cart() {
             </div>
             <div className="content__items">
               {
-                items.map((item:any)=><CartItem key={item.id} {...item}/>)
+                items.map((item:any)=><CartItemBlock key={item.id} {...item}/>)
               }
 </div>
             <div className="cart__bottom">

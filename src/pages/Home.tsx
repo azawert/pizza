@@ -1,18 +1,19 @@
 import React from 'react'
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
-import { useSelector,useDispatch } from 'react-redux'
-import { fetchPizzas, selectItems, selectStatus } from '../redux/slices/pizzaSlice';
-import { selectCategoryId, selectCurrentPage, selectSearchValue, selectSortType, setCategoryId,setCurrentPage,setFilters} from '../redux/slices/filterSlice'
+import { useSelector} from 'react-redux'
+import { fetchPizzas, selectItems, selectStatus, Status } from '../redux/slices/pizzaSlice';
+import {  selectCategoryId, selectCurrentPage, selectSearchValue, selectSortType, setCategoryId,setCurrentPage,setFilters} from '../redux/slices/filterSlice'
 import Categories from '../components/Categories'
-import Sort, { sortList } from '../components/Sort'
+import Sort from '../components/Sort'
 import Skeleton from '../components/Pizza/Skeleton'
 import Pizza from '../components/Pizza'
 import { Pagination } from '../components/Pagination'
+import { useAppDispatch } from '../redux/store';
 
 
 export default function Home() {
-const dispatch = useDispatch();
+const dispatch = useAppDispatch();
 const navigate = useNavigate();
 const categoryId = useSelector(selectCategoryId);
 const sortType = useSelector(selectSortType)
@@ -24,20 +25,20 @@ const searchValue = useSelector(selectSearchValue)
     const fetchPizza = () =>{
       
        
-         const order = sortType.includes('-');
+         const order = sortType.includes('-') ? '-' : '';
          const category = categoryId > 0?`category=${categoryId}` :''
          const sortBy = sortType.replace('-','');
          const search = searchValue ? `&search=${searchValue}`:'';
         
-          dispatch(fetchPizzas(
-            {
+          dispatch(
+            fetchPizzas({
               order,
               category,
               sortBy,
               search,
-              currentPage
-            }
-          ))
+              currentPage:String(currentPage)
+            })
+            )
         
        
         
@@ -53,18 +54,6 @@ const searchValue = useSelector(selectSearchValue)
     };
 
     React.useEffect(()=>{
-      
-      if (window.location.search) {
-        
-        const params = qs.parse(window.location.search.substring(1));
-        const sort = sortList.find(obj=>obj.sortProperty===params.sortProperty)
-        dispatch(setFilters({
-          ...params,
-          sort
-        }))
-      }
-    },[])
-    React.useEffect(()=>{
       const queryString = qs.stringify({
         sortProperty: sortType,
         categoryId,
@@ -78,8 +67,8 @@ const searchValue = useSelector(selectSearchValue)
 
    
 
-   const filteredPizzas = items.map((element: {id:string;imageUrl:string;title:string;price:number;sizes:number[];types:number[]})=> {
-     return <Pizza key={element.id} img={element.imageUrl} {...element}/>})
+   const filteredPizzas = items.map((element: any)=> {
+     return <Pizza key={element.id} {...element}/>})
     const skeletons = ([...new Array(10)].map((_,i)=>{return <Skeleton key={i}/>}))
   return (
       
@@ -88,9 +77,9 @@ const searchValue = useSelector(selectSearchValue)
             <Categories value = {categoryId} onChangeCategory={onChangeCategory}/>
             <Sort/>
           </div>
-          {status === 'failed'?<div><h2 className='content__title'>Произошла ошибка</h2><h3 className='content__error_message'>Во время запроса произошла ошибка.</h3><p className='content__error_paragraph'>Попробуйте через некоторое время</p></div>:<><h2 className="content__title">Все пиццы</h2>
+          {status === Status.FAIL?<div><h2 className='content__title'>Произошла ошибка</h2><h3 className='content__error_message'>Во время запроса произошла ошибка.</h3><p className='content__error_paragraph'>Попробуйте через некоторое время</p></div>:<><h2 className="content__title">Все пиццы</h2>
           <div className="content__items">
-          {status === 'loading'?skeletons:filteredPizzas}
+          {status === Status.LOADING?skeletons:filteredPizzas}
           </div></>}
           <Pagination currentPage={currentPage} onChangePage={onChangePage}/>
     </div>

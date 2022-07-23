@@ -9,9 +9,7 @@ type SortItem = {
   sortProperty: string;
 }
 
-type PopupClick = React.MouseEvent<HTMLBodyElement> & {
-  path: Node[]
-}
+
 
 export const sortList: SortItem[] = [{name:'популярности (по убыванию)',sortProperty:'rating'},{name:'цене (по убыванию)',sortProperty:'price'},{name:'алфавиту (по убыванию)',sortProperty:'title'},{name:'популярности (по возрастанию)',sortProperty:'-rating'},{name:'цене (по возрастанию)',sortProperty:'-price'},{name:'алфавиту (по возрастанию)',sortProperty:'-title'}]
 export default function Sort() {

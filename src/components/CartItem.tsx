@@ -1,8 +1,9 @@
 
 import React from 'react'
-import { useDispatch} from 'react-redux'
-import { addItem,removeItem,removeSingleItem } from '../redux/slices/cartSlice';
+
+import { addItem,CartItem,removeItem,removeSingleItem } from '../redux/slices/cartSlice';
 import Swal from 'sweetalert2';
+import { useAppDispatch } from '../redux/store';
 type CartItemProps = {
   id: string;
   title: string;
@@ -13,18 +14,30 @@ type CartItemProps = {
   sizes: number;
 }
 
-export const CartItem: React.FC<CartItemProps> = ({id,title,price,img,count,types,sizes}) => {
-  const dispatch = useDispatch();
+export const CartItemBlock: React.FC<CartItemProps> = ({id,title,price,img,count,types,sizes}) => {
+  const dispatch = useAppDispatch();
   const onClickPlus = () => {
     dispatch(addItem({
-      id
-    }))
+      id,
+      title: '',
+      price: 0,
+      img: '',
+      types: '',
+      sizes: 0,
+      count: 0
+    }) )
     
   }
   const onClickMinus = () => {
     dispatch(removeSingleItem({
-      id
-    }))
+      id,
+      title: '',
+      price: 0,
+      img: '',
+      types: '',
+      sizes: 0,
+      count: 0
+    }) )
     
   }
   const onClickX = () => {
